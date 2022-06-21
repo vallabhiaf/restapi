@@ -20,8 +20,8 @@ public class UserDaoService {
 	{   //Adding some static Users before hand
 		//add is a method of List DS and new object of User Type is being created 
 		users.add(new User(1,"Vallabh",new Date()));
-		users.add(new User(1,"Ram",new Date()));
-		users.add(new User(1,"Ratan",new Date()));
+		users.add(new User(2,"Ram",new Date()));
+		users.add(new User(3,"Ratan",new Date()));
 	}
 	
 	//Return list of all users from Db

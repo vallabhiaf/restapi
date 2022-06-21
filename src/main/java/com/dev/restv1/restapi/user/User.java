@@ -9,6 +9,12 @@ public class User {
 	private Date birthDate;
 	
 	
+	//Created as it gives error still need to check why
+	protected User() {
+		
+	}
+	
+	
 	public User(Integer id, String name, Date birthDate) {
 		super();
 		this.id = id;
