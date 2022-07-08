@@ -1,6 +1,7 @@
 package com.dev.restv1.restapi.user;
 
 import java.net.URI;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-//Controller which calls the DAO Service
+//Controller which calls the DAO Service(can also be named UserController)
 @RestController
 public class UserResource {
 	
@@ -30,7 +31,11 @@ public class UserResource {
 	//Get Specific User
 	@GetMapping("/users/{id}")
 	public User retreiveUser(@PathVariable int id ) {
-		return userDaoService.findOne(id);
+		User user = userDaoService.findOne(id);
+		if (user ==null)
+			throw new UserNotFoundException("id-"+id);
+		return user;
+		
 	}
 	
 	//Add user

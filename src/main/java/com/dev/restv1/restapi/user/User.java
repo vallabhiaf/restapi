@@ -10,6 +10,7 @@ public class User {
 	
 	
 	//Created as it gives error still need to check why
+	//Update new spring version dont need this
 	protected User() {
 		
 	}
