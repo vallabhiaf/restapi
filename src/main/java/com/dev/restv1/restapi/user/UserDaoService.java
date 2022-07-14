@@ -4,6 +4,7 @@ package com.dev.restv1.restapi.user;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -53,6 +54,22 @@ public class UserDaoService {
 		return null;
 		}
 	
+	public User deleteById(int id)
+	
+	{   // Cannot use for each when we need to remove something
+		Iterator<User> iterator = users.iterator();
+		while (iterator.hasNext()) {
+			User user=iterator.next();
+			if(user.getId() == id)
+			{
+				iterator.remove();
+				return user;
+				
+			}
+		}
+		return null;
 		
+	}
+	
 	}
 
