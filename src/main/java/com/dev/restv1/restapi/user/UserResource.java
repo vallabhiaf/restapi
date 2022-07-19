@@ -39,7 +39,7 @@ public class UserResource {
 		User user = userDaoService.findOne(id);
 		if (user ==null)
 			throw new UserNotFoundException("id-"+id);
-		//Converted into to entity model to add links/hateoas
+		//Converted into to entity model to add links/hateoas(actions/other resources)
 		EntityModel<User> model = EntityModel.of(user);
 		WebMvcLinkBuilder linkToUsers =linkTo(methodOn(this.getClass()).retrieveAllUsers());
 		model.add(linkToUsers.withRel("all-users"));
