@@ -2,9 +2,16 @@ package com.dev.restv1.restapi.user;
 
 import java.util.Date;
 
+
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+//Static Filtering with this line
+//@JsonIgnoreProperties(value = {"birthDate"})
+//Dynamic Filtering Requirment
+@JsonFilter("NameFilter")
 public class User {
 	
 	private Integer id;

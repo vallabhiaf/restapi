@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
 //Controller which calls the DAO Service(can also be named UserController)
 @RestController
@@ -27,6 +32,21 @@ public class UserResource {
 	private UserDaoService userDaoService;
 	
 	//Get All Users
+	//Applying Dynamic Filtering 
+	@GetMapping("/users-filtered")
+	public MappingJacksonValue retrieveAllUsersFiltered(){
+		List<User> listUsers= userDaoService.findAll();
+		SimpleBeanPropertyFilter filter= SimpleBeanPropertyFilter.filterOutAllExcept("name");
+		FilterProvider filters = new SimpleFilterProvider().addFilter("NameFilter", filter);
+		
+		MappingJacksonValue mapping = new MappingJacksonValue(listUsers);
+		mapping.setFilters(filters);
+				
+	    return mapping;
+	
+		
+	}
+	
 	@GetMapping("/users")
 	public List<User> retrieveAllUsers(){
 		return userDaoService.findAll();
